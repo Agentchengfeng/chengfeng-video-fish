@@ -1,6 +1,6 @@
 ---
-name: chengfeng-videocut-fish
-description: Fish 配音：把写好的中文口播稿交给 Fish Audio 官方接口自动配音，一段一段配；再用本机 whisper 对上逐字时间、查吞字，拼成一条，长停顿按标点压短、整体加速，查语速，交出成品口播 wav 和逐句逐字的时间线（给画面卡点用）。要一把 Fish Audio 的 API key 和一个声音 ID，加上 python3、ffmpeg、whisper.cpp。用户说用 Fish 配音、AI 配口播、把口播稿配成声音、自动配音时使用。不写稿；自己录的口播要剪，用 chengfeng-videocut-koubo。
+name: chengfeng-video-fish
+description: Fish 配音：把写好的中文口播稿交给 Fish Audio 官方接口自动配音，一段一段配；再用本机 whisper 对上逐字时间、查吞字，拼成一条，长停顿按标点压短、整体加速，查语速，交出成品口播 wav 和逐句逐字的时间线（给画面卡点用）。要一把 Fish Audio 的 API key 和一个声音 ID，加上 python3、ffmpeg、whisper.cpp。用户说用 Fish 配音、AI 配口播、把口播稿配成声音、自动配音时使用。不写稿；自己录的口播要剪，用 chengfeng-video-koubo。
 ---
 
 # Fish 配音
@@ -22,7 +22,7 @@ description: Fish 配音：把写好的中文口播稿交给 Fish Audio 官方�
 
 - `python3`（3.8 以上，只用标准库）、`ffmpeg` / `ffprobe`、`whisper-cli`（macOS：`brew install ffmpeg whisper-cpp`）。缺了告诉用户怎么装，不替用户装。
 - whisper 模型：默认 `~/.cache/whisper/ggml-small.bin`，没有就告诉用户下载：`mkdir -p ~/.cache/whisper && curl -L -o ~/.cache/whisper/ggml-small.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin`。换模型写进 config 的 `whisper_model`。
-- Fish Audio 的 API key：环境变量 `FISH_API_KEY`，或 `~/.chengfeng-videocut-fish/config.json` 里的 `fish_api_key`。没有就停下，告诉用户去 https://fish.audio/app/developers/get-started/ 开一把，API 余额在 https://fish.audio/app/developers/billing/ 充。key 不打印、不写进别的文件。
+- Fish Audio 的 API key：环境变量 `FISH_API_KEY`，或 `~/.chengfeng-video-fish/config.json` 里的 `fish_api_key`。没有就停下，告诉用户去 https://fish.audio/app/developers/get-started/ 开一把，API 余额在 https://fish.audio/app/developers/billing/ 充。key 不打印、不写进别的文件。
 - 声音 ID：config 的 `voice_id`，或每次 `--voice`。用户在 fish.audio 上挑好声音（或自己克隆一个），把它的 ID（32 位字母和数字）给你。
 - 模型：config 的 `model`，没写用 `s2.1-pro`（官方推荐的正式模型）。官方还有免费的 `s2.1-pro-free`，适合先试。
 - 想改别的接口参数（`temperature`、`prosody` 等），写在 config 的 `"tts": {…}` 里，字段名照官方文档。

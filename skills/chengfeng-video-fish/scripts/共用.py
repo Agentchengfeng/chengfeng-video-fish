@@ -1,7 +1,9 @@
 # 各脚本共用：配置、读写、时长、whisper 模型
 import json, os, re, subprocess, sys
 
-配置目录 = os.path.expanduser("~/.chengfeng-videocut-fish")
+配置目录 = os.path.expanduser("~/.chengfeng-video-fish")
+if not os.path.isdir(配置目录) and os.path.isdir(os.path.expanduser("~/.chengfeng-videocut-fish")):
+    配置目录 = os.path.expanduser("~/.chengfeng-videocut-fish")  # 改名前（chengfeng-videocut-fish）的设置；装新版时会拷到新位置
 PUNCT = set("，。？！：；、“”‘’（）《》…—,.?!:;\"'()")
 END = set("。？！?!…")
 COMMA = set("，、；：,;:—")

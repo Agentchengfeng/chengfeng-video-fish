@@ -6,15 +6,18 @@ const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-const HOME = process.env.CHENGFENG_VIDEOCUT_FISH_HOME || os.homedir();
+const HOME = process.env.CHENGFENG_VIDEO_FISH_HOME || os.homedir();
 const PKG_ROOT = path.resolve(__dirname, '..');
-const SKILL_NAME = 'chengfeng-videocut-fish';
+const SKILL_NAME = 'chengfeng-video-fish';
 const SOURCE = path.join(PKG_ROOT, 'skills', SKILL_NAME);
 const PRIMARY_SKILLS = path.join(HOME, '.claude', 'skills');
 const COMPAT_SKILLS = path.join(HOME, '.codex', 'skills');
 const DESTINATION = path.join(PRIMARY_SKILLS, SKILL_NAME);
 const LINK = path.join(COMPAT_SKILLS, SKILL_NAME);
-const CONFIG = path.join(HOME, '.chengfeng-videocut-fish', 'config.json');
+const CONFIG = path.join(HOME, '.chengfeng-video-fish', 'config.json');
+// 改名前叫 chengfeng-videocut-fish：装的时候把旧的 Skill 备份后拿掉，旧设置拷到新位置（旧的留着）。
+const OLD_NAME = 'chengfeng-videocut-fish';
+const OLD_CONFIG_DIR = path.join(HOME, '.chengfeng-videocut-fish');
 
 const log = (message = '') => process.stdout.write(`${message}\n`);
 const timestamp = () => new Date().toISOString().replace(/[-:]/g, '').replace(/\..+/, '').replace('T', '-');
@@ -97,7 +100,14 @@ function install() {
   fs.mkdirSync(COMPAT_SKILLS, { recursive: true });
   const compatBackup = backupAndRemove(LINK, `${SKILL_NAME}-compat`);
   fs.symlinkSync(DESTINATION, LINK);
+  const oldSkill = backupAndRemove(path.join(PRIMARY_SKILLS, OLD_NAME), `${OLD_NAME}-renamed`);
+  backupAndRemove(path.join(COMPAT_SKILLS, OLD_NAME), `${OLD_NAME}-compat-renamed`);
+  const newConfigDir = path.dirname(CONFIG);
+  const movedConfig = fs.existsSync(OLD_CONFIG_DIR) && !fs.existsSync(newConfigDir);
+  if (movedConfig) copyDir(OLD_CONFIG_DIR, newConfigDir);
   log(`✓ ${SKILL_NAME} installed`);
+  if (oldSkill) log(`  ${OLD_NAME} is now ${SKILL_NAME}; the old copy was backed up to ${oldSkill}`);
+  if (movedConfig) log(`  Settings copied from ${OLD_CONFIG_DIR} to ${newConfigDir} (the old folder is kept).`);
   log('✓ Agent Skill registered');
   if (skillBackup) log('  Existing Agent Skill backed up.');
   if (compatBackup) log('  Existing Agent registration backed up.');
@@ -128,14 +138,14 @@ function uninstall() {
 }
 
 function help() {
-  log('chengfeng-videocut-fish');
+  log('chengfeng-video-fish');
   log('');
   log('Usage:');
-  log('  npx -y github:Agentchengfeng/chengfeng-videocut-fish install');
-  log('  npx -y github:Agentchengfeng/chengfeng-videocut-fish doctor');
+  log('  npx -y github:Agentchengfeng/chengfeng-video-fish install');
+  log('  npx -y github:Agentchengfeng/chengfeng-video-fish doctor');
   log('');
   log('Commands: install, doctor, uninstall, help');
-  log('For test-only installs: CHENGFENG_VIDEOCUT_FISH_HOME=/tmp/test-home');
+  log('For test-only installs: CHENGFENG_VIDEO_FISH_HOME=/tmp/test-home');
 }
 
 function main() {

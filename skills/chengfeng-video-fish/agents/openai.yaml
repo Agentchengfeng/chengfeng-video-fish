@@ -1,0 +1,4 @@
+interface:
+  display_name: "成峰 Fish 配音"
+  short_description: "把中文口播稿交给 Fish Audio 自动配音，对上逐字时间、查吞字，压停顿、查语速，交出口播和时间线"
+  default_prompt: "请用 $chengfeng-video-fish 把这份口播稿配成声音：先分段、算好要花多少，我点头后再配，配完对齐、拼接、压停顿、查语速，最后给我口播和时间线。"

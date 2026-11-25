@@ -1,4 +1,4 @@
-# 成峰 Fish 配音 chengfeng-videocut-fish
+# 成峰 Fish 配音 chengfeng-video-fish
 
 > 写好的中文口播稿，交给 AI 用 Fish Audio 配成声音：一段一段配，对上每个字的时间，查吞字，压停顿、查语速，交出能直接放进视频的口播和时间线。
 
@@ -32,19 +32,19 @@
 最简单的方式：把这句发给你的 AI，它会照着命令装好：
 
 ```text
-帮我运行这条命令，安装成峰 Fish 配音 Skill：npx -y github:Agentchengfeng/chengfeng-videocut-fish install
+帮我运行这条命令，安装成峰 Fish 配音 Skill：npx -y github:Agentchengfeng/chengfeng-video-fish install
 ```
 
 自己在终端装也行：
 
 ```sh
-npx -y github:Agentchengfeng/chengfeng-videocut-fish install
+npx -y github:Agentchengfeng/chengfeng-video-fish install
 ```
 
 再配好 key 和声音：
 
 ```sh
-mkdir -p ~/.chengfeng-videocut-fish && echo '{"fish_api_key": "你的key", "voice_id": "你的声音ID"}' > ~/.chengfeng-videocut-fish/config.json
+mkdir -p ~/.chengfeng-video-fish && echo '{"fish_api_key": "你的key", "voice_id": "你的声音ID"}' > ~/.chengfeng-video-fish/config.json
 ```
 
 装好后重启 Agent，让它重新加载 Skill 列表。
@@ -82,14 +82,14 @@ mkdir -p ~/.chengfeng-videocut-fish && echo '{"fish_api_key": "你的key", "voic
 ## 不做什么
 
 - 不写稿。
-- 不剪你自己录的口播：那个用 [成峰剪口播](https://github.com/Agentchengfeng/chengfeng-videocut-koubo)。
+- 不剪你自己录的口播：那个用 [成峰剪口播](https://github.com/Agentchengfeng/chengfeng-video-koubo)。
 - 没人听过的地方，报告里写“没人耳听过”，不写成“没问题”。
 
 ## 检查与卸载
 
 ```sh
-npx -y github:Agentchengfeng/chengfeng-videocut-fish doctor
-npx -y github:Agentchengfeng/chengfeng-videocut-fish uninstall
+npx -y github:Agentchengfeng/chengfeng-video-fish doctor
+npx -y github:Agentchengfeng/chengfeng-video-fish uninstall
 ```
 
 `doctor` 会查 Skill 装好没有，python3、ffmpeg、whisper、模型和 Fish key 在不在（只看有没有，不打印 key）。包里只有说明文件和脚本，不含 API key 或任何个人数据。
@@ -97,7 +97,7 @@ npx -y github:Agentchengfeng/chengfeng-videocut-fish uninstall
 ## 脚本也能单独用
 
 ```sh
-S=~/.claude/skills/chengfeng-videocut-fish/scripts
+S=~/.claude/skills/chengfeng-video-fish/scripts
 python3 $S/分段.py 口播稿.md                  # → 口播稿-配音/
 python3 $S/配音.py 口播稿-配音 --只算          # 先看要花多少
 python3 $S/配音.py 口播稿-配音
@@ -110,12 +110,12 @@ python3 $S/语速.py 口播稿-配音
 ## 仓库结构
 
 ```text
-chengfeng-videocut-fish/
+chengfeng-video-fish/
 ├── SKILL.md
 ├── LICENSE / NOTICE.md / CITATION.cff
 ├── package.json
 ├── bin/install.js
-└── skills/chengfeng-videocut-fish/
+└── skills/chengfeng-video-fish/
     ├── SKILL.md
     ├── 更新日志.md
     ├── agents/openai.yaml
