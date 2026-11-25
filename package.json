@@ -1,0 +1,23 @@
+{
+  "name": "chengfeng-videocut-fish",
+  "version": "0.1.0",
+  "description": "Agent Skill that voices a Chinese voiceover script with the Fish Audio API, aligns every character's timing with whisper.cpp, shortens pauses, checks speaking rate, and outputs the audio plus a timeline",
+  "license": "Apache-2.0",
+  "author": "成峰 / AI产品自由",
+  "bin": {
+    "chengfeng-videocut-fish": "bin/install.js"
+  },
+  "files": ["bin/", "skills/", "README.md", "LICENSE", "NOTICE.md", "CITATION.cff", "SKILL.md"],
+  "keywords": ["agent", "agent-skill", "skill", "voiceover", "tts", "fish-audio", "whisper"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agentchengfeng/chengfeng-videocut-fish.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Agentchengfeng/chengfeng-videocut-fish/issues"
+  },
+  "homepage": "https://github.com/Agentchengfeng/chengfeng-videocut-fish#readme",
+  "engines": {
+    "node": ">=18"
+  }
+}
